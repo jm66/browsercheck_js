@@ -31,10 +31,35 @@ function checkPlugins() // Runs the appropriate check function for IE or non-IE 
 	}
 } // End checkPlugins
 
+//UofT
+//If plugin not installed display where to get it
+var URLS = (function() {
+    var private = {
+        'GET_PDF': '<a href=\"http://get.adobe.com/reader/\" target=\"_blank\">Download</a>',
+        'GET_REAL': '<a href=\"http://www.real.com/realplayer?src=null&pcode=rn\" target=\"_blank\">Download</a>',
+        'GET_REALMAC': '<a href=\"http://asia.real.com/?mode=rp_mac\" target=\"_blank\">Download</a>',
+        'GET_QT':'<a href=\"http://www.apple.com/quicktime/\" target=\"_blank\">Download</a>',
+        'GET_SHOCK': '<a href=\"http://get.adobe.com/shockwave/\" target=\"_blank\">Download</a>',
+        'GET_FLASH': '<a href=\"http://get.adobe.com/flashplayer/\" target=\"_blank\">Download</a>',
+        'GET_SILVER': '<a href=\"http://www.microsoft.com/getsilverlight/Get-Started/Install/Default.aspx\" target=\"_blank\">Download</a>'
+    };
+
+    return {
+       get: function(name) { return private[name]; }
+   };
+})();
+
 function pluginDetect() // Only used for non-IE browsers
 {
 	var argumentArray, npLength, plugName, plugDesc, plugNameLower, plugDescLower, realBuildVersion;
-	
+	//UofT
+	//If plugin not installed display where to get it
+	realVersion = URLS.get('GET_REAL');
+    qtVersion = URLS.get('GET_QT');
+    shockwaveVersion = URLS.get('GET_SHOCK');
+    flashVersion = URLS.get('GET_FLASH');
+    silverlightVersion = URLS.get('GET_SILVER');
+    
 	argumentArray = pluginDetect.arguments; // creates an array of plugin names being checked for
 	
 	for (h=0; h<argumentArray.length; h++) // Pre-populate pluginArray with "No" values (assume no plugins are installed)
@@ -62,11 +87,10 @@ function pluginDetect() // Only used for non-IE browsers
 	for (q=0; q<pluginArray.length; q++)
 	{
 		var tempArray = pluginArray[q].split("--");
-		
 		switch (true) // need a case for each argument passed to pluginDetect()
 		{
 			case tempArray[0] == "windows media":
-				wmpVersion = "Unknown"; // WMP version is difficult to determine in non-IE browsers 
+				wmpVersion = "Not available"; // WMP version is difficult to determine in non-IE browsers 
 				wmpInstalled = "Yes";
 				break;
 			case tempArray[0] == "shockwave flash":
@@ -95,18 +119,19 @@ function pluginDetect() // Only used for non-IE browsers
 								realVersion = "8 or Lower"; // RealPlayer version detection through navigator.plugins is not reliable
 								break;
 							default:
-								realVersion = "Unknown";
+								
+								realVersion = URLS.get('GET_REAL');
 								break;
 						}
 						break;
 					default:
-						realVersion = "Unknown";
+						realVersion = URLS.get('GET_REAL');
 						break;
 				}
 				realInstalled = "Yes";
 				break; 
 			case tempArray[0] == "realplayer plugin": // RealPlayer plugin on a Mac
-				realVersion = "Unknown";
+				realVersion = URLS.get('GET_REAL');
 				realInstalled = "Yes";
 				break; 
 			case tempArray[0] == "quicktime plug-in":
@@ -119,7 +144,7 @@ function pluginDetect() // Only used for non-IE browsers
 				pdfVersion = parseFloat(tempArray[2].split('version ')[1]); // get Adobe Reader Version
 				if (isNaN(pdfVersion)) // if version was not found (not-a-number)
 				{
-					pdfVersion = "Unknown";
+					pdfVersion = URLS.get('GET_PDF');
 				}
 				pdfInstalled = "Yes";
 				break; 
@@ -127,7 +152,7 @@ function pluginDetect() // Only used for non-IE browsers
 				pdfVersion = parseFloat(tempArray[2].split('version ')[1]); // get Adobe Reader Version
 				if (isNaN(pdfVersion)) // if version was not found (not-a-number)
 				{
-					pdfVersion = "Unknown";
+					pdfVersion = URLS.get('GET_PDF');
 				}
 				pdfInstalled = "Yes";
 				break; 
@@ -331,7 +356,7 @@ function pluginDetectIE() // this detects plugins for Internet Explorer
 					silverlightVersion = "2.0";
 					break;
 				default:
-					silverlightVersion = "Unknown";
+					silverlightVersion = URLS.get('GET_SILVER');
 					break;
 			}
 			silverlightInstalled = "Yes";
