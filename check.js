@@ -1,7 +1,15 @@
-// Version 2.8
-// 12-14-2011
-// author: Shannon Meisenheimer, meisenheimer@ucmo.edu
-// Compatiblity Requirements for Bb 9.1 SP7
+/* 
+ * Version 2.9
+ * contributor: Jose M. Lopez, jm.lopez@utoronto.ca
+ * Compatiblity Requirements for Bb 9.1 SP8
+ * 
+ * Version 2.8 
+ * 12-14-2011
+ * author: Shannon Meisenheimer, meisenheimer@ucmo.edu
+ * Compatiblity Requirements for Bb 9.1 SP7
+ * 
+**/
+
 
 var browserAgent, browserUserAgent, browserUserAgentLowerCase, browserVersion, browserPlatform, OSVersion, OSBit, platformVersion, safariVersion, browserPass;
 
@@ -24,6 +32,18 @@ switch (true) // OSBitSwitch - Check for 64 or 32 bit
 		OSBit = "64";
 		break;
 } // End OSBitSwitch
+
+var IMAGES = (function() {
+    var private = {
+        'PASS' : './images/pass.png',
+        'FAIL' : './images/fail.png',
+        'WARN' : './images/warning.png'
+    };
+
+    return {
+       get: function(name) { return private[name]; }
+   };
+})();
 
 switch (true) // WinOSSwitch - Check if platform is Windows
 {
@@ -231,13 +251,13 @@ function checkBrowser() // Function checks for browser/OS compatibility with Bb
 							switch (true) // IEVersionWin7-64Switch - what versions of IE are OK for Windows 7-64
 							{
 								case parseFloat(browserVersion) > 9.0:
-									browserPass = "fail";
+									browserPass = "warning";
 									break;
 								case parseFloat(browserVersion) == 9.0:
-									browserPass = "warning";
+									browserPass = "pass";
 									break;
 								case parseFloat(browserVersion) >= 8.0:
-									browserPass = "warning";
+									browserPass = "pass";
 									break;
 								default:
 									browserPass = "fail";
@@ -248,13 +268,13 @@ function checkBrowser() // Function checks for browser/OS compatibility with Bb
 							switch (true) // IEVersionWin7Switch - what versions of IE are OK for Windows 7
 							{
 								case parseFloat(browserVersion) > 9.0:
-									browserPass = "fail";
+									browserPass = "warning";
 									break;
 								case parseFloat(browserVersion) == 9.0:
 									browserPass = "pass";
 									break;
 								case parseFloat(browserVersion) >= 8.0:
-									browserPass = "warning";
+									browserPass = "pass";
 									break;
 								default:
 									browserPass = "fail";
@@ -265,13 +285,13 @@ function checkBrowser() // Function checks for browser/OS compatibility with Bb
 							switch (true) // IEVersionVista-64Switch - what versions of IE are OK for Vista-64
 							{
 								case parseFloat(browserVersion) > 9.0:
-									browserPass = "fail";
+									browserPass = "warning";
 									break;
 								case parseFloat(browserVersion) == 9.0:
-									browserPass = "warning";
+									browserPass = "pass";
 									break;
 								case parseFloat(browserVersion) >= 8.0:
-									browserPass = "warning";
+									browserPass = "pass";
 									break;
 								default:
 									browserPass = "fail";
@@ -282,13 +302,13 @@ function checkBrowser() // Function checks for browser/OS compatibility with Bb
 							switch (true) // IEVersionVistaSwitch - what versions of IE are OK for Vista
 							{
 								case parseFloat(browserVersion) > 9.0:
-									browserPass = "fail";
+									browserPass = "warning";
 									break;
 								case parseFloat(browserVersion) == 9.0:
 									browserPass = "pass";
 									break;
 								case parseFloat(browserVersion) >= 8.0:
-									browserPass = "warning";
+									browserPass = "pass";
 									break;
 								default:
 									browserPass = "fail";
@@ -302,7 +322,7 @@ function checkBrowser() // Function checks for browser/OS compatibility with Bb
 									browserPass = "fail";
 									break;
 								case parseFloat(browserVersion) == 8.0:
-									browserPass = "warning";
+									browserPass = "pass";
 									break;
 								default:
 									browserPass = "fail";
@@ -328,17 +348,14 @@ function checkBrowser() // Function checks for browser/OS compatibility with Bb
 						case platformVersion == "Windows 7 64-bit":
 							switch (true) // FirefoxVersionWin7-64Switch - what versions of Firefox are OK for Win7-64
 							{
-								case parseFloat(browserVersion) >= 8.0:
-									browserPass = "warning";
-									break;
-								case parseFloat(browserVersion) == 8.0:
-									browserPass = "warning";
+								case parseFloat(browserVersion) > 14.0:
+									browserPass = "fail";
 									break;
 								case parseFloat(browserVersion) >= 4.0:
-									browserPass = "warning";
+									browserPass = "pass";
 									break;
 								case parseFloat(browserVersion) >= 3.6:
-									browserPass = "warning";
+									browserPass = "pass";
 									break;
 								default:
 									browserPass = "fail";
@@ -348,17 +365,14 @@ function checkBrowser() // Function checks for browser/OS compatibility with Bb
 						case platformVersion == "Windows 7":
 							switch (true) // FirefoxVersionWin7Switch - what versions of Firefox are OK for Win7
 							{
-								case parseFloat(browserVersion) > 8.0:
-									browserPass = "warning";
-									break;
-								case parseFloat(browserVersion) == 8.0:
-									browserPass = "pass";
+								case parseFloat(browserVersion) > 14.0:
+									browserPass = "fail";
 									break;
 								case parseFloat(browserVersion) >= 4.0:
-									browserPass = "warning";
+									browserPass = "pass";
 									break;
 								case parseFloat(browserVersion) >= 3.6:
-									browserPass = "warning";
+									browserPass = "pass";
 									break;
 								default:
 									browserPass = "fail";
@@ -368,18 +382,15 @@ function checkBrowser() // Function checks for browser/OS compatibility with Bb
 						case platformVersion == "Windows Vista 64-bit":
 							switch (true) // FirefoxVersionVista-64Switch - what versions of Firefox are OK for Vista-64
 							{
-								case parseFloat(browserVersion) >= 8.0:
-									browserPass = "warning";
-									break;
-								case parseFloat(browserVersion) == 8.0:
-									browserPass = "warning";
+								case parseFloat(browserVersion) > 14.0:
+									browserPass = "fail";
 									break;
 								case parseFloat(browserVersion) >= 4.0:
-									browserPass = "warning";
+									browserPass = "pass";
 									break;
 								case parseFloat(browserVersion) >= 3.6:
-									browserPass = "warning";
-									break;
+									browserPass = "pass";
+									break;	
 								default:
 									browserPass = "fail";
 									break;
@@ -388,14 +399,14 @@ function checkBrowser() // Function checks for browser/OS compatibility with Bb
 						case platformVersion == "Windows Vista":
 							switch (true) // FirefoxVersionVistaSwitch - what versions of Firefox are OK for Vista
 							{
-								case parseFloat(browserVersion) > 8.0:
-									browserPass = "warning";
-									break;
-								case parseFloat(browserVersion) == 8.0:
-									browserPass = "pass";
+								case parseFloat(browserVersion) > 14.0:
+									browserPass = "fail";
 									break;
 								case parseFloat(browserVersion) >= 4.0:
-									browserPass = "warning";
+									browserPass = "pass";
+									break;
+								case parseFloat(browserVersion) >= 3.6:
+									browserPass = "pass";
 									break;
 								case parseFloat(browserVersion) >= 3.6:
 									browserPass = "warning";
@@ -408,14 +419,14 @@ function checkBrowser() // Function checks for browser/OS compatibility with Bb
 						case platformVersion == "Windows XP":
 							switch (true) // FirefoxVersionXPSwitch - what versions of Firefox are OK for XP
 							{
-								case parseFloat(browserVersion) >= 8.0:
-									browserPass = "warning";
-									break;
-								case parseFloat(browserVersion) == 8.0:
-									browserPass = "warning";
+								case parseFloat(browserVersion) > 14.0:
+									browserPass = "fail";
 									break;
 								case parseFloat(browserVersion) >= 4.0:
-									browserPass = "warning";
+									browserPass = "pass";
+									break;
+								case parseFloat(browserVersion) >= 3.6:
+									browserPass = "pass";
 									break;
 								case parseFloat(browserVersion) >= 3.6:
 									browserPass = "warning";
@@ -433,17 +444,38 @@ function checkBrowser() // Function checks for browser/OS compatibility with Bb
 				case browserPlatform == "Macintosh": // platform is Mac
 					switch (true) // FirefoxMacSwitch
 					{
+					// Added by JM - UofT
+						case platformVersion == "Mac OSX 10.7":
+							switch (true) // FirefoxVersionOSX10.7Switch - what versions of Firefox are OK for OSX 10.6
+							{
+								case parseFloat(browserVersion) > 14.0:
+									browserPass = "fail";
+									break;
+								case parseFloat(browserVersion) >= 4.0:
+									browserPass = "pass";
+									break;
+								case parseFloat(browserVersion) >= 3.6:
+									browserPass = "pass";
+									break;
+								case parseFloat(browserVersion) >= 3.6:
+									browserPass = "warning";
+									break;
+								default:
+									browserPass = "fail";
+									break;
+							}
+							break;
 						case platformVersion == "Mac OSX 10.6":
 							switch (true) // FirefoxVersionOSX10.6Switch - what versions of Firefox are OK for OSX 10.6
 							{
-								case parseFloat(browserVersion) > 8.0:
-									browserPass = "warning";
-									break;
-								case parseFloat(browserVersion) == 8.0:
-									browserPass = "pass";
+								case parseFloat(browserVersion) > 14.0:
+									browserPass = "fail";
 									break;
 								case parseFloat(browserVersion) >= 4.0:
-									browserPass = "warning";
+									browserPass = "pass";
+									break;
+								case parseFloat(browserVersion) >= 3.6:
+									browserPass = "pass";
 									break;
 								case parseFloat(browserVersion) >= 3.6:
 									browserPass = "warning";
@@ -456,14 +488,14 @@ function checkBrowser() // Function checks for browser/OS compatibility with Bb
 						case platformVersion == "Mac OSX 10.5":
 							switch (true) // FirefoxVersionOSX10.5Switch - what versions of Firefox are OK for OSX 10.5
 							{
-								case parseFloat(browserVersion) >= 8.0:
-									browserPass = "warning";
-									break;
-								case parseFloat(browserVersion) == 8.0:
-									browserPass = "warning";
+								case parseFloat(browserVersion) > 14.0:
+									browserPass = "fail";
 									break;
 								case parseFloat(browserVersion) >= 4.0:
-									browserPass = "warning";
+									browserPass = "pass";
+									break;
+								case parseFloat(browserVersion) >= 3.6:
+									browserPass = "pass";
 									break;
 								case parseFloat(browserVersion) >= 3.6:
 									browserPass = "warning";
@@ -473,12 +505,14 @@ function checkBrowser() // Function checks for browser/OS compatibility with Bb
 									break;
 							}
 							break;
-						default: // Other versions of Mac OS are not supported
+						default: // Other versions of Mac OS are not supported 
+								 // Mac OS 10.8 not supported yet
 							browserPass = "fail";
 							break;
 					}
 					break;
 				default: // OS other than Mac or Windows are not supported
+						 // Unfortunately
 					browserPass = "fail";
 					break;
 			}
@@ -489,14 +523,34 @@ function checkBrowser() // Function checks for browser/OS compatibility with Bb
 				case browserPlatform == "Macintosh":
 				switch (true) // SafariMacSwitch
 					{
+						case platformVersion == "Mac OSX 10.7":
+							switch (true) // SafariVersionOSX10.6Switch - what versions of Safari are OK for OSX 10.6
+							{
+								case parseFloat(browserVersion) == 5.1:
+									browserPass = "pass";
+									break;
+								case parseFloat(browserVersion) == 5.0:
+									browserPass = "fail";
+									break;
+								case parseFloat(browserVersion) == 4.0:
+									browserPass = "fail";
+									break;
+								default:
+									browserPass = "fail";
+									break;
+							}
+							break;
 						case platformVersion == "Mac OSX 10.6":
 							switch (true) // SafariVersionOSX10.6Switch - what versions of Safari are OK for OSX 10.6
 							{
+								case parseFloat(browserVersion) == 5.1:
+									browserPass = "pass";
+									break;
 								case parseFloat(browserVersion) == 5.0:
 									browserPass = "pass";
 									break;
 								case parseFloat(browserVersion) == 4.0:
-									browserPass = "warning";
+									browserPass = "pass";
 									break;
 								default:
 									browserPass = "fail";
@@ -506,11 +560,14 @@ function checkBrowser() // Function checks for browser/OS compatibility with Bb
 						case platformVersion == "Mac OSX 10.5":
 							switch (true) // SafariVersionOSX10.5Switch - what versions of Safari are OK for OSX 10.5
 							{
+								case parseFloat(browserVersion) == 5.1:
+									browserPass = "fail";
+									break;
 								case parseFloat(browserVersion) == 5.0:
-									browserPass = "warning";
+									browserPass = "pass";
 									break;
 								case parseFloat(browserVersion) == 4.0:
-									browserPass = "warning";
+									browserPass = "pass";
 									break;
 								default:
 									browserPass = "fail";
@@ -537,11 +594,11 @@ function checkBrowser() // Function checks for browser/OS compatibility with Bb
 						case platformVersion == "Windows 7 64-bit":
 							switch (true) // ChromeVersionWin7-64Switch - what versions of Chrome are OK for Win7-64
 							{
-								case parseFloat(browserVersion) > 15.0:
-									browserPass = "warning";
+								case parseFloat(browserVersion) > 22.0:
+									browserPass = "fail";
 									break;
 								case parseFloat(browserVersion) >= 15.0:
-									browserPass = "warning";
+									browserPass = "pass";
 									break;
 								case parseFloat(browserVersion) < 10.0:
 									browserPass = "fail";
@@ -554,8 +611,8 @@ function checkBrowser() // Function checks for browser/OS compatibility with Bb
 						case platformVersion == "Windows 7":
 							switch (true) // ChromeVersionWin7Switch - what versions of Chrome are OK for Win7
 							{
-								case parseFloat(browserVersion) > 15.0:
-									browserPass = "warning";
+								case parseFloat(browserVersion) > 22.0:
+									browserPass = "fail";
 									break;
 								case parseFloat(browserVersion) >= 15.0:
 									browserPass = "pass";
@@ -571,11 +628,11 @@ function checkBrowser() // Function checks for browser/OS compatibility with Bb
 						case platformVersion == "Windows Vista 64-bit":
 							switch (true) // ChromeVersionVista-64Switch - what versions of Chrome are OK for Vista-64
 							{
-								case parseFloat(browserVersion) > 15.0:
-									browserPass = "warning";
+								case parseFloat(browserVersion) > 22.0:
+									browserPass = "fail";
 									break;
 								case parseFloat(browserVersion) >= 15.0:
-									browserPass = "warning";
+									browserPass = "pass";
 									break;
 								case parseFloat(browserVersion) < 10.0:
 									browserPass = "fail";
@@ -588,11 +645,11 @@ function checkBrowser() // Function checks for browser/OS compatibility with Bb
 						case platformVersion == "Windows Vista":
 							switch (true) // ChromeVersionVistaSwitch - what versions of Chrome are OK for Vista
 							{
-								case parseFloat(browserVersion) > 15.0:
-									browserPass = "warning";
+								case parseFloat(browserVersion) > 22.0:
+									browserPass = "fail";
 									break;
 								case parseFloat(browserVersion) >= 15.0:
-									browserPass = "warning";
+									browserPass = "pass";
 									break;
 								case parseFloat(browserVersion) < 10.0:
 									browserPass = "fail";
@@ -605,11 +662,11 @@ function checkBrowser() // Function checks for browser/OS compatibility with Bb
 						case platformVersion == "Windows XP":
 							switch (true) // ChromeVersionXPSwitch - what versions of Chrome are OK for XP
 							{
-								case parseFloat(browserVersion) > 15.0:
-									browserPass = "warning";
+								case parseFloat(browserVersion) > 22.0:
+									browserPass = "fail";
 									break;
 								case parseFloat(browserVersion) >= 15.0:
-									browserPass = "warning";
+									browserPass = "pass";
 									break;
 								case parseFloat(browserVersion) < 10.0:
 									browserPass = "fail";
@@ -647,11 +704,11 @@ function checkBrowser() // Function checks for browser/OS compatibility with Bb
 						case platformVersion == "Mac OSX 10.5":
 							switch (true) // ChromeVersionOSX10.5Switch - what versions of Chrome are OK for OSX 10.5
 							{
-								case parseFloat(browserVersion) > 15.0:
-									browserPass = "warning";
+								case parseFloat(browserVersion) > 22.0:
+									browserPass = "fail";
 									break;
 								case parseFloat(browserVersion) >= 15.0:
-									browserPass = "warning";
+									browserPass = "pass";
 									break;
 								case parseFloat(browserVersion) < 10.0:
 									browserPass = "fail";
@@ -679,16 +736,16 @@ function checkBrowser() // Function checks for browser/OS compatibility with Bb
 	switch (true)
 	{
 		case browserPass == "pass": // if check passes load a pass image
-			document["browserImg"].src="./images/pass.gif";
-			document["browserImg"].alt="Pass";
+			document["browserImg"].src = IMAGES.get('PASS');
+			document["browserImg"].alt = "Pass";
 			break;
 		case browserPass == "warning": // loads a warning image
-			document["browserImg"].src="./images/warning.gif";
-			document["browserImg"].alt="Warning";
+			document["browserImg"].src = IMAGES.get('WARN');
+			document["browserImg"].alt = "Warning";
 			break;
 		case browserPass == "fail": // loads fail image, most of the checks have a preloaded fail image in the html file - assume fail 
-			document["browserImg"].src="./images/fail.gif";
-		   	document["browserImg"].alt="Fail";
+			document["browserImg"].src = IMAGES.get('FAIL');
+		   	document["browserImg"].alt = "Fail";
 			break;
 	}
 } // End checkBrowser()
@@ -705,8 +762,8 @@ function checkCookies()
 	navigator.cookiesAreEnabled = checkCookiesAreEnabled();
 	if (navigator.cookiesAreEnabled) 
 	{
-		document["cookiesImg"].src="./images/pass.gif";
-		document["cookiesImg"].alt="Pass";
+		document["cookiesImg"].src = IMAGES.get('PASS');
+		document["cookiesImg"].alt = "Pass";
 		msg = " ";
 	} 
 	return msg; 
@@ -772,7 +829,7 @@ function checkPorts() // Checks for allowed ports - could also be used for 443 a
 {
 	if (document.images) 
   	{
-		imgPort80URL = "./images/pass.gif";
+		imgPort80URL = IMAGES.get('PASS');
    		var imgPort80 = new Image();
 		imgPort80.src = imgPort80URL;
     	if (imgPort80.width = "55") 
@@ -786,7 +843,7 @@ function checkPorts() // Checks for allowed ports - could also be used for 443 a
 function runChecks() // runs the check functions, except checkPlugins()
 {
 	checkBrowser();
-	document["javaScriptImg"].src="./images/pass.gif"; // if Javascript is enabled this will be passed to the html file
+	document["javaScriptImg"].src=IMAGES.get('PASS'); // if Javascript is enabled this will be passed to the html file
 	document["javaScriptImg"].alt="Pass"; // if Javascript is enabled this will be passed to the html file
 	checkCookies();
 	checkPopup();

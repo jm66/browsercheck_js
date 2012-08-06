@@ -1,7 +1,15 @@
-// Version 2.4
-// 08-02-2010
-// author: Shannon Meisenheimer, meisenheimer@ucmo.edu
-
+/* 
+ * Version 2.5
+ * contributor: Jose M. Lopez, jm.lopez@utoronto.ca
+ * 	Added functionality when no plug in is detected, 
+ * 	instead of "Unknown" displays "Download" with each 
+ * 	Plugin download page
+ * 
+ * Version 2.4 
+ * 08-02-2010
+ * author: Shannon Meisenheimer, meisenheimer@ucmo.edu
+ * 
+**/
 var pluginDesc, pluginName, flashVersion, pdfVersion, shockwaveVersion, qtVersion, realVersion, wmpVersion, silverlightVersion, flashInstalled, pdfInstalled,
 	shockwaveInstalled,	qtInstalled, realInstalled, wmpInstalled, silverlightInstalled; 
 var pluginArray = [];
